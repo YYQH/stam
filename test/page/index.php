@@ -7,7 +7,7 @@
 $fis_data = array(
 	'user' => array(
 		"is_login" => 1,
-		"user_name" =>"wangqun2009",
+		"user_name" =>"111",
 		"user_sign" => "123123123",
 		"bdstoken" => "b56422c0948d8800",
 	)
