@@ -1,0 +1,162 @@
+/***
+ * @writer 	: zhangrongming@baidu.com
+ * @data 	: 2015-10-29
+ **/
+
+.animation(@name, @duration: 500ms, @fn: ease, @delay:0, @count: 1, @direction: normal) when (iskeyword(@name)){
+	.CSS3(animation, @arguments);
+}
+.animationWebkit(@name, @duration: 500ms, @fn: ease) when (iskeyword(@name)){
+	.CSS3(animation, @arguments, webkit);
+}
+.animationMoz(@name, @duration: 500ms, @fn: ease) when (iskeyword(@name)){
+	.CSS3(animation, @arguments, moz);
+}
+.animationO(@name, @duration: 500ms, @fn: ease) when (iskeyword(@name)){
+	.CSS3(animation, @arguments, o);
+}
+.animationMs(@name, @duration: 500ms, @fn: ease) when (iskeyword(@name)){
+	.CSS3(animation, @arguments, ms);
+}
+.keyFrames(@name, @rules){
+	@-webkit-keyframes ~'@{name}' {
+		@rules();
+	}
+	@-moz-keyframes ~'@{name}' {
+		@rules();
+	}
+	@-ms-keyframes ~'@{name}' {
+		@rules();
+	}
+	@-o-keyframes ~'@{name}' {
+		@rules();
+	}
+	@keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFrames(@name, @rules, @type) when (@type = webkit){
+	@-webkit-keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFrames(@name, @rules, @type) when (@type = moz){
+	@-moz-keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFrames(@name, @rules, @type) when (@type = ms){
+	@-ms-keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFrames(@name, @rules, @type) when (@type = o){
+	@-o-keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFrames(@name, @rules, @type) when (@type = none){
+	@keyframes ~'@{name}' {
+		@rules();
+	}
+}
+.keyFramesWebkit(@name, @rules){
+	@-webkit-keyframes ~'@{name}' {
+		@rules();
+	}
+}
+
+
+.animate(@name, @duration) when (@name = maskradi){
+	.mask(radial-gradient(black, white), 100%, 50% 50%);
+	.animationWebkit(@name, @duration, ease-in-out);
+	.keyFramesWebkit(@name, {
+		0%{
+			.CSS3Webit(mask-size, 0%);
+		}
+		100%{
+			.CSS3Webit(mask-size, 100%);
+		}
+	});
+}
+.animate(@name, @duration, @width) when (@name = maskwipe){
+	@image: gradient(linear, left top, right bottom,
+		color-stop(0.00,  rgba(0,0,0,1)),
+		color-stop(0.50,  rgba(0,0,0,1)),
+		color-stop(1.00,  rgba(0,0,0,0)));
+	.mask(@image, @width * 2);
+	.animationWebkit(@name, @duration, ease-in-out);
+	.keyFramesWebkit(@name, {
+		0%{
+			.CSS3Webit(mask-position, -@width * 2 -@width * 2);
+		}
+		100%{
+			.CSS3Webit(mask-position, 0 0);
+		}
+	});
+}
+.animate(@name, @duration, @width, @height: @width) when (@name = maskhori){
+	@image: gradient(linear, left top, right top, 
+		color-stop(0.00,  rgba(0,0,0,1)),
+		color-stop(0.50,  rgba(0,0,0,1)),
+		color-stop(1.00,  rgba(0,0,0,0)));
+	.mask(@image, 1.4 * @width  @height);
+	.animationWebkit(@name, @duration, ease-in-out);
+	.keyFramesWebkit(@name, {
+		0%{
+			.CSS3Webit(mask-position, -@width 0);
+		}
+		100%{
+			.CSS3Webit(mask-position, 0 0);
+		}
+	});
+}
+
+.animate(@name, @duration, @width, @height) when (@name = maskverti){
+	@image: gradient(linear, left top, left bottom,
+		color-stop(0.00,  rgba(0,0,0,1)),
+		color-stop(0.50,  rgba(0,0,0,1)),
+		color-stop(1.00,  rgba(0,0,0,0)));
+	.mask(@image, @width @height);
+	.animationWebkit(@name, @duration);
+	.keyFramesWebkit(@name, {
+		0%{
+			.CSS3Webit(mask-position, 0 -@height);
+		}
+		100%{
+			.CSS3Webit(mask-position, 0 0);
+		}
+	});
+}
+
+.animate(@name, @duration: 400ms, @top: 100px) when(@name = vertialjump){
+	.CSS3(transform, translate(0, 0));
+	.CSS3(transform, scale(1));
+	opacity: 1;
+	.animation(@name, @duration);
+	.vertialjumpFN(@type){
+			.keyFrames(@name, {
+				0% {
+					opacity: 0;
+					// .CSS3(transform, scale(0.2), @type);
+					.CSS3(transform, translate(0, @top / -2), @type);
+				}
+				30% {
+					opacity: 0.5;
+					// .CSS3(transform, scale(0.5), @type);
+					.CSS3(transform, translate(0, -@top), @type);
+				}
+				100% {
+					opacity: 1;
+					// .CSS3(transform, scale(1), @type);
+					.CSS3(transform, translate(0, 0), @type);
+				}
+		}, @type);
+	}
+	.vertialjumpFN(webkit);
+	.vertialjumpFN(moz);
+	.vertialjumpFN(ms);
+	.vertialjumpFN(o);
+	.vertialjumpFN(none);
+
+}

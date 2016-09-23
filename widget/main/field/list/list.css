@@ -1,0 +1,21 @@
+.flg{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: block;
+    margin: auto;
+    top: 50%;
+    position: absolute;
+    margin-top: -10px;
+    left: 50%;
+    margin-left: -10px;
+}
+
+.flg-comm{
+    background: #faa;
+    border: 1px solid #e99;
+}
+.flg-depr{
+    background: #aaa;
+    border: 1px solid #999;
+}

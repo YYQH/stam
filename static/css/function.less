@@ -1,0 +1,251 @@
+/***
+ * @writer  : zhangrongming@baidu.com
+ * @data    : 2015-10-29
+ **/
+
+/** position **/
+.relative(@top: 0, @left: 0, @bottom: auto, @right: auto){
+    position: relative;
+    top: @top;
+    left: @left;
+    bottom: @bottom;
+    right: @right;
+}
+.absolute(@top: 0, @left: 0, @bottom: auto, @right: auto){
+    position: absolute;
+    top: @top;
+    left: @left;
+    bottom: @bottom;
+    right: @right;
+}
+.absoluteSize(@top: 0, @left: 0, @width: auto, @height: auto, @bottom: auto, @right: auto){
+    .absolute(@top, @left, @bottom, @right);
+    .size(@width, @height);
+}
+.size(@width: auto, @height: auto){
+    width: @width;
+    height: @height;
+}
+.float(@width: auto, @height: auto, @float: left){
+    float: @float;
+    width: @width;
+    height: @height;
+}
+.absoluteCenter(@width: 100%, @height: 100%){
+    .absoluteTL(50%, 50%, @width, @height);
+    margin-top: -@height/2;
+    margin-left: -@width/2;
+}
+.border(@top: none, @right: none, @bottom: none, @left: none){
+    border-top: @top;
+    border-right: @right;
+    borcer-bottom: @bottom;
+    border-left: @left;
+}
+.location(@top: auto, @right: auto, @bottom: auto, @left: auto){
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left: @left;
+}
+.overflow(@overflow: visible, @width: auto, @height: auto){
+    width: @width;
+    height: @height;
+    overflow: @overflow;
+}
+.heightLineHeight(@height: 100%;){
+    height: @height;
+    line-height: @height;
+}
+.IEInlineBlock(){
+    display: inline-block;
+    _display: block;
+}
+.inlineBlock(@width: auto, @height: auto){
+    display: inline-block;
+    width: @width;
+    height: @height;
+    _zoom: 1;
+}
+.IE67InlineBlock(@width: auto, @height: auto, @overflow: visible){
+    *display: inline;
+    *zoom:1;
+    *width: @width;
+    *height: @height;
+    *overflow: @overflow;
+}
+/* background */
+.IE6Png8Background(@url: none) when(isstring(@url)){
+    _background-image: url('@{url}');
+}
+.IE6Background(@url: none) when (isstring(@url)){
+    _background-image: none;
+    _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../lib/img/@{url}",enabled=true,sizingMethod="crop");
+}
+.backgroundMixinIE6(@url: none, @posX: center, @posY: center, @color: transparent, @repeat: no-repeat, @attachment: scroll) when (isstring(@url)){
+    .backgroundMixin(@url, @posX, @posY, @color, @repeat, @attachment);
+    .IE6Background(@url);
+}
+.topCenterBG(@posX: top){
+    background-position: @posX center;
+    background-repeat: no-repeat;
+}
+.backgroundMixin(@url: none, @posX: center, @posY: center, @color: transparent, @repeat: no-repeat, @attachment: scroll) when (isstring(@url)){
+    background-image: url('@{url}');
+    background-color: @color;
+    background-position: @posX @posY;
+    background-repeat: @repeat;
+    background-attachment: @attachment;
+}
+
+/** CSS 3 **/
+.CSS3(@key, @value) when (iskeyword(@key)) {
+    -webkit-@{key}: @value;
+    -moz-@{key}: @value;
+    -ms-@{key}: @value;
+    -o-@{key}: @value;
+    @{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = only){
+     @{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = webkit){
+     -webkit-@{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = moz){
+     -moz-@{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = ms){
+     -ms-@{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = o){
+     -o-@{key}: @value;
+}
+.CSS3(@key, @value, @type) when (@type = none){
+     @{key}: @value;
+}
+.CSS3All(@key, @value){
+    -webkit-@{key}: e('-webkit-@{value}');
+    -moz-@{key}: e('-moz-@{value}');
+    -ms-@{key}: e('-mz-@{value}');
+    -o-@{key}: e('-o-@{value}');
+    @{key}: @value;
+}
+.CSS3Webit(@key, @value){
+    -webkit-@{key}: @value;
+}
+.CSS3WebkitAll(@key, @value){
+    -webkit-@{key}: e('-webkit-@{value}');
+}
+.boxShadow(@x: 0, @y: 0, @blur: 1px, @spread: 0, @color: #000) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+  -o-box-shadow: @arguments;
+  -mz-box-shadow: @arguments;
+}
+.mask(@image, @size: 100%, @position: 0 0, @repeat: no-repeat){
+    .CSS3WebkitAll(mask-image, @image);
+    .CSS3Webit(mask-size, @size);
+    .CSS3Webit(mask-position, @position);
+    .CSS3Webit(mask-repeat, @repeat);
+}
+
+/* font */
+.fontMixin(@size: inherit, @height: normal, @color: inherit, @weight: normal, @align: left){
+    font-size: @size;
+    line-height: @height;
+    color: @color;
+    font-weight: @weight;
+    text-align: @align;
+}
+.fontCut(@width: 100%, @display: block){
+    display: @display;
+    width: @width;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+/* opacity */
+.opacityAndIE6(@opacity: 1, @color: #fff){
+    @ie6Opacity: @opacity * 100;
+    background-color: @color;
+    opacity: @opacity;
+    _filter: alpha(opacity=@ie6Opacity);
+}
+
+/* other */
+.content(@content : ''){
+    content: @content;
+}
+
+/* arrow */
+.arrowRight(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-left: @width solid @color;
+    border-top: @height solid transparent;
+    border-bottom: @height solid transparent;
+    border-right: none;
+}
+.arrowLeft(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-right: @width solid @color;
+    border-top: @height solid transparent;
+    border-bottom: @height solid transparent;
+    border-left: none;
+}
+.arrowTop(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-bottom: @width solid @color;
+    border-left: @height solid transparent;
+    border-right: @height solid transparent;
+    border-top: none;
+}
+.arrowBottom(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-top: @width solid @color;
+    border-left: @height solid transparent;
+    border-right: @height solid transparent;
+    border-bottom: none;
+}
+.arrowTopBottom(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-top: @width solid @color;
+    border-left: @height solid transparent;
+    border-right: @height solid transparent;
+    border-bottom: @width solid @color;
+}
+.arrowLeftRight(@width : 4px, @color: #000, @height : @width){
+    .inlineBlock(0, 0);
+    .content();
+    border-right: @width solid @color;
+    border-top: @height solid transparent;
+    border-bottom: @height solid transparent;
+    border-left: @width solid @color;
+}
+
+/** tools **/
+.noWrap(){
+    white-space: nowrap;
+}
+.pointer(){cursor: pointer;}
+.noSpace(){
+    margin: 0;
+    padding: 0;
+}
+.noPadding(){padding: 0;}
+.noMargin(){margin: 0;}
+.show(){display: block;}
+.hide(){display: none;}
+.hidden(){visibility: hidden;}
+.visible(){visibility: visible;}
+.noBackground(){background: none;}
+.noListStyle(){list-style: none;}
+.noTextLine(){text-decoration: none;}

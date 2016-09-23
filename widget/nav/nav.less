@@ -1,0 +1,47 @@
+@import url(/static/css/core.less);
+
+.app-nav{
+    .lightGrayBorder();
+    width: @navWidth - @space;
+    float: left;
+    margin-left: @space;
+    padding: @space / 2;
+    padding-top: @space;
+    min-height: @mainMinHeight;
+    .nav-g{
+        .noSpace();
+        margin: 0;
+        .lightGrayBottomBorder();
+        list-style: none;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+    .nav-i{
+        padding: @space/4 0;
+        text-align: center;
+        border-left: 4px solid #fff;
+        margin: 0 2px;
+    }
+    .nav-g .on{
+        border-color: #99f;
+        background-color: #ccf;
+    }
+    .nav-g:last-child{
+        border-bottom: none;
+    }
+    a{
+        color: @defaultColor;
+    }
+    a:hover{
+        .noTextLine();
+    }
+    a.nav-choose{
+        .noTextLine();
+        color: @chooseColor;
+    }
+    .nav-part ul a.nav-choose::after{
+        content: '>';
+        margin-left: @space*0.1;
+        display: inline;
+    }
+}
